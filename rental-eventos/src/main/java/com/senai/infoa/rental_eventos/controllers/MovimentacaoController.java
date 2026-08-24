@@ -1,0 +1,62 @@
+package com.senai.infoa.rental_eventos.controllers;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.senai.infoa.rental_eventos.models.Movimentacao;
+import com.senai.infoa.rental_eventos.services.MovimentacaoService;
+
+
+@RestController
+@RequestMapping("/movimentacao")
+public class MovimentacaoController {
+    
+
+    @Autowired
+    private MovimentacaoService movimentacaoService;
+
+    @GetMapping("/contar-movimentacoes")
+    public Long contarMovimentacoes() {
+        return movimentacaoService.contarMovimentacoes();
+    }
+
+    @GetMapping("/buscar-movimentacoes/{id}")
+    public Movimentacao buscarMovimentacoes(@PathVariable Integer id) {
+        return movimentacaoService.buscarMovimentacao(id);
+    }
+    
+    @GetMapping("/listar-movimentacoes")
+    public List<Movimentacao> listarMovimentacoes() {
+        return movimentacaoService.listarMovimentacoes();
+    }
+    
+    @DeleteMapping("/deletar-movimentacao/{id}")
+    public String deletarMovimentacao(@PathVariable Integer id) {
+        if (movimentacaoService.buscarMovimentacao(id) != null) {
+            return "Movimentação deletada com sucesso.";
+        }
+        return "Movimentação não encontrada.";
+        }
+    
+    @PostMapping("/salvar-movimentacao")
+    public Movimentacao cadastrarMovimentacao(@RequestBody Movimentacao movimentacao) {
+        return movimentacaoService.cadastrarMovimentacao(movimentacao);
+    }
+    
+    @PutMapping("/atualizar-movimentacao/{id}")
+    public String atualizarMovimentacao(@PathVariable Integer id, @RequestBody Movimentacao movimentacao) {
+        if (movimentacaoService.atualizarMovimentacao(id, movimentacao) != null) {
+            return "Movimentação atualizada com sucesso.";
+        }
+        return "Movimentação não encontrada.";
+    }
+}
