@@ -1,12 +1,16 @@
 package com.senai.infoa.rental_eventos.models;
 
 import java.time.LocalDate;
+import java.util.Set;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -30,6 +34,14 @@ public class Movimentacao {
 
     @Column(name="observacao")
     private String observacao;
+
+    @ManyToMany
+    @JoinTable(
+        name = "movimentacao_equipamento",
+        joinColumns = @JoinColumn(name = "movimentacao_id", referencedColumnName = "id"),
+        inverseJoinColumns = @JoinColumn(name = "equipamento_id", referencedColumnName = "id")
+    )
+    private Set<Equipamento> equipamento;
 
     public Movimentacao (){}
 
