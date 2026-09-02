@@ -10,39 +10,46 @@ import com.senai.infoa.rental_eventos.repositories.MovimentacaoRepository;
 
 @Service
 public class MovimentacaoService {
-    
+
     @Autowired
     private MovimentacaoRepository movimentacaoRepository;
 
-    public Long contarMovimentacoes(){
+    public Long contarMovimentacoes() {
         return movimentacaoRepository.count();
     }
 
-    public Movimentacao buscarMovimentacao(Integer id){
+    public Movimentacao buscarMovimentacao(Integer id) {
         return movimentacaoRepository.findById(id).get();
     }
 
-    public List<Movimentacao> listarMovimentacoes(){
+    public List<Movimentacao> listarMovimentacoes() {
         return movimentacaoRepository.findAll();
     }
 
-    public Boolean deletarMovimentacoes(Integer id){
-        if(movimentacaoRepository.existsById(id)) {
+    public Boolean deletarMovimentacoes(Integer id) {
+        if (movimentacaoRepository.existsById(id)) {
+            movimentacaoRepository.deleteById(id);
             return true;
         }
         return false;
     }
 
-    public Movimentacao cadastrarMovimentacao(Movimentacao movimentacao){
+    public Movimentacao cadastrarMovimentacao(Movimentacao movimentacao) {
         return movimentacaoRepository.save(movimentacao);
     }
 
-    public Movimentacao atualizarMovimentacao(Integer id, Movimentacao movimentacao){
+    public Movimentacao atualizarMovimentacao(Integer id, Movimentacao movimentacao) {
         Movimentacao movimentacaoRecuperada = buscarMovimentacao(id);
-        if(movimentacaoRecuperada != null){
+        if (movimentacaoRecuperada != null) {
             movimentacaoRecuperada.setId(id);
-            if(movimentacao.getDataMovimentacao()!= null) {
+            if (movimentacao.getDataMovimentacao() != null) {
                 movimentacaoRecuperada.setDataMovimentacao(movimentacao.getDataMovimentacao());
+            }
+            if (movimentacao.getTipoMovimentacao() != null) {
+                movimentacaoRecuperada.setTipoMovimentacao(movimentacao.getTipoMovimentacao());
+            }
+            if (movimentacao.getObservacao() != null) {
+                movimentacaoRecuperada.setObservacao(movimentacao.getObservacao());
             }
             movimentacaoRecuperada.setQuantidade(movimentacao.getQuantidade());
             return movimentacaoRepository.save(movimentacaoRecuperada);

@@ -10,41 +10,46 @@ import com.senai.infoa.rental_eventos.repositories.UsuarioRepository;
 
 @Service
 public class UsuarioService {
-    
+
     @Autowired
     private UsuarioRepository usuarioRepository;
 
-    public Long contarUsuarios(){
+    public Long contarUsuarios() {
         return usuarioRepository.count();
     }
 
-    public Usuario buscarUsuario(Integer id){
+    public Usuario buscarUsuario(Integer id) {
         return usuarioRepository.findById(id).get();
     }
 
-    public List<Usuario> listarUsuarios(){
+    public List<Usuario> listarUsuarios() {
         return usuarioRepository.findAll();
     }
 
-    public Boolean deletarUsuarios(Integer id){
-        if(usuarioRepository.existsById(id)) {
-            return true;
+    public Boolean deletarUsuarios(Integer id) {
+        usuarioRepository.deleteById(id);
+        {
+            if (usuarioRepository.existsById(id))
+                return true;
         }
         return false;
     }
 
-    public Usuario cadastrarUsuario(Usuario usuario){
+    public Usuario cadastrarUsuario(Usuario usuario) {
         return usuarioRepository.save(usuario);
     }
 
-    public Usuario atualizarUsuario(Integer id, Usuario usuario){
+    public Usuario atualizarUsuario(Integer id, Usuario usuario) {
         Usuario usuarioRecuperado = buscarUsuario(id);
-        if(usuarioRecuperado != null){
+        if (usuarioRecuperado != null) {
             usuarioRecuperado.setId(id);
-            if(usuario.getNome()!= null) {
+            if (usuario.getNome() != null) {
                 usuarioRecuperado.setNome(usuario.getNome());
             }
-            if(usuario.getSenha() != null) {
+            if (usuario.getEmail() != null) {
+                usuarioRecuperado.setEmail(usuario.getEmail());
+            }
+            if (usuario.getSenha() != null) {
                 usuarioRecuperado.setSenha(usuario.getSenha());
             }
             return usuarioRepository.save(usuarioRecuperado);
