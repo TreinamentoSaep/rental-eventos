@@ -52,11 +52,12 @@ public class EquipamentoController {
         return equipamentoService.cadastrarEquipamento(equipamento);
     }
     
+    /*
     @PutMapping("/atualizar-equipamento/{id}")
     public String atualizarEquipamento(@PathVariable Integer id, @RequestBody Equipamento equipamento) {
         if (equipamentoService.atualizarEquipamento(id, equipamento) != null) {
             return "Equipamento atualizado com sucesso.";
         }
         return "Equipamento não encontrado.";
-    }
+    }*/
 }

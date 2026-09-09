@@ -26,12 +26,15 @@ public class MovimentacaoService {
         return movimentacaoRepository.findAll();
     }
 
-    public Boolean deletarMovimentacoes(Integer id) {
-        if (movimentacaoRepository.existsById(id)) {
-            movimentacaoRepository.deleteById(id);
-            return true;
+    public Boolean deletarMovimentacao(Integer id) {
+        movimentacaoRepository.deleteById(id);
+        {
+            if (movimentacaoRepository.existsById(id))
+                return true;
         }
         return false;
+    }
+
     }
 
     public Movimentacao cadastrarMovimentacao(Movimentacao movimentacao) {

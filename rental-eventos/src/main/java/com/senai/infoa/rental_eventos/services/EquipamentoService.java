@@ -38,6 +38,8 @@ public class EquipamentoService {
         return equipamentoRepository.save(equipamento);
     }
 
+    /*
+
     public Equipamento atualizarEquipamento(Integer id, Equipamento equipamento) {
         Equipamento equipamentoRecuperado = buscarEquipamento(id);
         if (equipamentoRecuperado != null) {
@@ -70,4 +72,5 @@ public class EquipamentoService {
         }
         return null;
     }
+        */
 }
