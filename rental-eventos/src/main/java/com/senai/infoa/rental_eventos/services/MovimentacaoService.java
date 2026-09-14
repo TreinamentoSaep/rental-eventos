@@ -35,8 +35,6 @@ public class MovimentacaoService {
         return false;
     }
 
-    }
-
     public Movimentacao cadastrarMovimentacao(Movimentacao movimentacao) {
         return movimentacaoRepository.save(movimentacao);
     }
